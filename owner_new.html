@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Extra Tools - Veterinary Clinic</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .box {
+            max-width: 900px;
+            margin: auto;
+            background: #ffffff;
+            padding: 22px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+        }
+
+        h2 {
+            color: #1b4332;
+            border-bottom: 2px solid #95d5b2;
+            padding-bottom: 6px;
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 12px;
+            margin-bottom: 5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            max-width: 380px;
+            padding: 8px;
+            border: 1px solid #94a3b8;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+        }
+
+        button {
+            margin-top: 12px;
+            background-color: #2d6a4f;
+            color: #ffffff;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #1b4332;
+        }
+
+        ul {
+            margin-top: 12px;
+            padding-left: 20px;
+        }
+
+        .feedback-output {
+            display: none;
+            margin-top: 14px;
+            padding: 12px;
+            background-color: #ecfdf5;
+            border-left: 4px solid #10b981;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <!-- Extra Feature A: Daily Feeding & Diet Schedule -->
+    <h2>Daily Feeding &amp; Diet Schedule</h2>
+    <label for="petDietName">Pet Name:</label>
+    <input type="text" id="petDietName" placeholder="e.g., Bruno">
+
+    <label for="mealTime">Meal Time:</label>
+    <select id="mealTime">
+        <option value="Morning (8:00 AM)">Morning (8:00 AM)</option>
+        <option value="Afternoon (1:30 PM)">Afternoon (1:30 PM)</option>
+        <option value="Evening (7:30 PM)">Evening (7:30 PM)</option>
+    </select>
+
+    <label for="foodItem">Food / Supplement:</label>
+    <input type="text" id="foodItem" placeholder="e.g., Boiled rice + vet kibble">
+
+    <br>
+    <button type="button" onclick="addDietItem()">Add to Feeding List</button>
+
+    <ul id="dietList">
+        <li><strong>Bruno</strong> — Morning (8:00 AM): Vet kibble &amp; fresh water</li>
+    </ul>
+
+    <hr style="margin: 28px 0; border: 0; border-top: 1px solid #e2e8f0;">
+
+    <!-- Extra Feature B: Quick Owner Rating & Note -->
+    <h2>Submit Quick Care Feedback</h2>
+    <label for="ratingSelect">Clinic Experience Rating:</label>
+    <select id="ratingSelect">
+        <option value="5 Stars - Excellent">5 Stars - Excellent</option>
+        <option value="4 Stars - Very Good">4 Stars - Very Good</option>
+        <option value="3 Stars - Good">3 Stars - Good</option>
+    </select>
+
+    <label for="ownerNote">Short Note for Vet Team:</label>
+    <textarea id="ownerNote" rows="3" placeholder="Write recovery update or question..."></textarea>
+
+    <br>
+    <button type="button" onclick="saveFeedback()">Save Feedback</button>
+
+    <div id="feedbackBox" class="feedback-output"></div>
+</div>
+
+<script>
+    function addDietItem() {
+        let pet = document.getElementById("petDietName").value;
+        let meal = document.getElementById("mealTime").value;
+        let food = document.getElementById("foodItem").value;
+
+        if (pet === "" || food === "") {
+            alert("Please enter both Pet Name and Food/Supplement!");
+            return;
+        }
+
+        let li = document.createElement("li");
+        li.innerHTML = "<strong>" + pet + "</strong> — " + meal + ": " + food;
+        document.getElementById("dietList").appendChild(li);
+
+        document.getElementById("petDietName").value = "";
+        document.getElementById("foodItem").value = "";
+    }
+
+    function saveFeedback() {
+        let rating = document.getElementById("ratingSelect").value;
+        let note = document.getElementById("ownerNote").value;
+        let box = document.getElementById("feedbackBox");
+
+        if (note === "") {
+            alert("Please write a short note first!");
+            return;
+        }
+
+        box.innerHTML = "<strong>Feedback Recorded:</strong> " + rating + "<br><strong>Note:</strong> " + note;
+        box.style.display = "block";
+        document.getElementById("ownerNote").value = "";
+    }
+</script>
+
+</body>
+</html>
